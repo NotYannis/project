@@ -64,7 +64,7 @@ specif  : ident  ( 'fixe' '(' type  ( ',' type  )* ')' )?
                  ( 'mod'  '(' type  ( ',' type  )* ')' )? 
   ;
   
-consts  : 'const' ( ident '=' valeur {PtGen.pt(7);} ptvg  )+ 
+consts  : 'const' ( ident {PtGen.pt(26);} '=' valeur {PtGen.pt(7);} ptvg  )+ 
   ;
   
 vars  : 'var' ( type ident {PtGen.pt(26);} ( ','  ident {PtGen.pt(26);} )* ptvg )+ {PtGen.pt(6);}
@@ -73,7 +73,7 @@ vars  : 'var' ( type ident {PtGen.pt(26);} ( ','  ident {PtGen.pt(26);} )* ptvg 
 type  : 'ent' {PtGen.pt(10);}
   |     'bool' {PtGen.pt(9);}
   ;
-  
+
 decprocs: (decproc ptvg)+
   ;
   

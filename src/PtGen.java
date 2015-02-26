@@ -313,7 +313,7 @@ public class PtGen {
 					break;
 				case VARGLOBALE : produire(CONTENUG); produire(tabSymb[x].info);
 					break;
-				default : UtilLex.messErr("Aucun catégorie trouvée pour cette identifiant");
+				default : 
 					break;
 			}
 			afftabSymb();
@@ -401,8 +401,7 @@ public class PtGen {
 		// etc
 
 		default:
-			System.out
-					.println("Point de génération non prévu dans votre liste");
+			System.out.println("Point de génération non prévu dans votre liste");
 			break;
 
 		}
