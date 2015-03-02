@@ -1,10 +1,11 @@
 FICHIER test.gen : 
 
    1  réserver        6
-   3  empiler         5
+   3  empiler        12
    5  affecterg       5
    7  contenug        5
    9  empiler         3
   11  add       
   12  affecterg       0
-  14  arrêt     
+  14  lirent    
+  15  arrêt     

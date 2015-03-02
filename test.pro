@@ -7,6 +7,7 @@ var ent x,y,z;
 	bool d, e;
 	ent f;
 debut
-	f := bonjour;
+	f := 12;
 	x := f + m;
+	lire(f);
 fin

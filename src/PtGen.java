@@ -412,7 +412,19 @@ public class PtGen {
 					break;
 			}
 			break;
-		//Prochain ptgen : 29
+		case 30:
+			x = presentIdent(1);
+			if (x == 0) UtilLex.messErr("identificateur non déclaré");
+			switch(tabSymb[x].type){
+				case BOOL :
+					produire(LIREBOOL);
+					break;
+				case ENT :
+					produire(LIRENT);
+					break;
+			}
+			break;
+		//Prochain ptgen : 31
 		case 255:
 			produire(ARRET);
 			constGen();
