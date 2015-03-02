@@ -253,7 +253,7 @@ public class PtGen {
 		ipo = 0;
 		tCour = NEUTRE;
 		bp = 0;
-		y = 0;
+		y = 0; //indice de placement des varglobales
 	} // initialisations
 
 	// autres variables et procédures introduites par le trinome
@@ -302,6 +302,7 @@ public class PtGen {
 		// code Mapile reserver
 		case 6:
 			produire(RESERVER);
+			produire(y); //Nb de variables à sauvegarder
 			break;
 		//Maj table des symboles
 		case 26:
@@ -320,15 +321,20 @@ public class PtGen {
 			break;
 		// declaration consts
 		case 7:
-			y = UtilLex.numId;
+			//y = UtilLex.numId;
 			if (presentIdent(1) == 0) {
-				placeIdent(y, CONSTANTE, tCour, vCour);
+				placeIdent(UtilLex.numId, CONSTANTE, tCour, vCour);
 			}
 			afftabSymb();
 			break;
 		// ;
-		//case 8:
-		//	break;
+		case 8:
+			if (presentIdent(1) == 0) {
+				placeIdent(UtilLex.numId, VARGLOBALE, tCour, y);
+				y++;
+			}
+			afftabSymb();
+			break;
 		// type bool
 		case 9:
 			tCour = BOOL;

@@ -1,4 +1,4 @@
-FICHIER test2.gen : 
+FICHIER test.gen : 
 
    1  réserver        6
    3  arrêt     
