@@ -279,7 +279,7 @@ public class PtGen {
 		// empiler la valeur
 		case 3:
 			produire(EMPILER);
-			pileRep.empiler(vCour);
+			produire(vCour);
 			break;
 		//nbentier positif
 		case 27:
@@ -393,6 +393,13 @@ public class PtGen {
 		case 24:
 			produire(OU);
 			break;
+		case 28:
+			produire(AFFECTERG);
+			x = presentIdent(1);
+			if (x == 0) UtilLex.messErr("identificateur non déclaré");
+			else produire(tabSymb[x].info);
+			break;
+		//Prochain ptgen : 29
 		case 255:
 			produire(ARRET);
 			constGen();

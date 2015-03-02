@@ -1,4 +1,8 @@
 FICHIER test2.gen : 
 
    1  réserver        6
-   3  arrêt     
+   3  empiler        -5
+   5  empiler         3
+   7  add       
+   8  ecrent    
+   9  arrêt     

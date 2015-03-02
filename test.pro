@@ -7,4 +7,6 @@ var ent xez,y,z;
 	bool d, e;
 	ent f;
 debut
+	xez := 12;
+	f := 6;
 fin

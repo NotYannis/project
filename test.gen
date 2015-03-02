@@ -1,4 +1,8 @@
 FICHIER test.gen : 
 
    1  réserver        6
-   3  arrêt     
+   3  empiler        12
+   5  affecterg       0
+   7  empiler         6
+   9  affecterg       5
+  11  arrêt     
