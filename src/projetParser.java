@@ -1,4 +1,4 @@
-// $ANTLR 3.5 projet.g 2015-03-02 12:24:27
+// $ANTLR 3.5 projet.g 2015-03-02 13:25:54
            
 import java.io.IOException;
 import java.io.DataInputStream;
@@ -1680,10 +1680,11 @@ public class projetParser extends Parser {
 
 			switch (alt36) {
 				case 1 :
-					// projet.g:134:17: ':=' expression
+					// projet.g:134:15: ':=' expression
 					{
-					match(input,16,FOLLOW_16_in_affouappel888); 
-					pushFollow(FOLLOW_expression_in_affouappel890);
+					PtGen.pt(29);
+					match(input,16,FOLLOW_16_in_affouappel889); 
+					pushFollow(FOLLOW_expression_in_affouappel891);
 					expression();
 					state._fsp--;
 
@@ -1703,7 +1704,7 @@ public class projetParser extends Parser {
 						case 1 :
 							// projet.g:135:18: effixes ( effmods )?
 							{
-							pushFollow(FOLLOW_effixes_in_affouappel911);
+							pushFollow(FOLLOW_effixes_in_affouappel912);
 							effixes();
 							state._fsp--;
 
@@ -1717,7 +1718,7 @@ public class projetParser extends Parser {
 								case 1 :
 									// projet.g:135:27: effmods
 									{
-									pushFollow(FOLLOW_effmods_in_affouappel914);
+									pushFollow(FOLLOW_effmods_in_affouappel915);
 									effmods();
 									state._fsp--;
 
@@ -1756,7 +1757,7 @@ public class projetParser extends Parser {
 			// projet.g:139:9: ( '(' ( expression ( ',' expression )* )? ')' )
 			// projet.g:139:11: '(' ( expression ( ',' expression )* )? ')'
 			{
-			match(input,9,FOLLOW_9_in_effixes946); 
+			match(input,9,FOLLOW_9_in_effixes947); 
 			// projet.g:139:15: ( expression ( ',' expression )* )?
 			int alt38=2;
 			int LA38_0 = input.LA(1);
@@ -1767,7 +1768,7 @@ public class projetParser extends Parser {
 				case 1 :
 					// projet.g:139:16: expression ( ',' expression )*
 					{
-					pushFollow(FOLLOW_expression_in_effixes949);
+					pushFollow(FOLLOW_expression_in_effixes950);
 					expression();
 					state._fsp--;
 
@@ -1785,8 +1786,8 @@ public class projetParser extends Parser {
 						case 1 :
 							// projet.g:139:43: ',' expression
 							{
-							match(input,13,FOLLOW_13_in_effixes954); 
-							pushFollow(FOLLOW_expression_in_effixes956);
+							match(input,13,FOLLOW_13_in_effixes955); 
+							pushFollow(FOLLOW_expression_in_effixes957);
 							expression();
 							state._fsp--;
 
@@ -1803,7 +1804,7 @@ public class projetParser extends Parser {
 
 			}
 
-			match(input,10,FOLLOW_10_in_effixes964); 
+			match(input,10,FOLLOW_10_in_effixes965); 
 			}
 
 		}
@@ -1824,7 +1825,7 @@ public class projetParser extends Parser {
 			// projet.g:142:9: ( '(' ( ident ( ',' ident )* )? ')' )
 			// projet.g:142:10: '(' ( ident ( ',' ident )* )? ')'
 			{
-			match(input,9,FOLLOW_9_in_effmods976); 
+			match(input,9,FOLLOW_9_in_effmods977); 
 			// projet.g:142:14: ( ident ( ',' ident )* )?
 			int alt40=2;
 			int LA40_0 = input.LA(1);
@@ -1835,7 +1836,7 @@ public class projetParser extends Parser {
 				case 1 :
 					// projet.g:142:15: ident ( ',' ident )*
 					{
-					pushFollow(FOLLOW_ident_in_effmods979);
+					pushFollow(FOLLOW_ident_in_effmods980);
 					ident();
 					state._fsp--;
 
@@ -1852,8 +1853,8 @@ public class projetParser extends Parser {
 						case 1 :
 							// projet.g:142:23: ',' ident
 							{
-							match(input,13,FOLLOW_13_in_effmods983); 
-							pushFollow(FOLLOW_ident_in_effmods985);
+							match(input,13,FOLLOW_13_in_effmods984); 
+							pushFollow(FOLLOW_ident_in_effmods986);
 							ident();
 							state._fsp--;
 
@@ -1870,7 +1871,7 @@ public class projetParser extends Parser {
 
 			}
 
-			match(input,10,FOLLOW_10_in_effmods993); 
+			match(input,10,FOLLOW_10_in_effmods994); 
 			}
 
 		}
@@ -1894,7 +1895,7 @@ public class projetParser extends Parser {
 			// projet.g:145:13: ( exp1 )
 			// projet.g:145:14: exp1
 			{
-			pushFollow(FOLLOW_exp1_in_expression1007);
+			pushFollow(FOLLOW_exp1_in_expression1008);
 			exp1();
 			state._fsp--;
 
@@ -1913,11 +1914,13 @@ public class projetParser extends Parser {
 				case 1 :
 					// projet.g:145:21: 'ou' exp1
 					{
-					match(input,46,FOLLOW_46_in_expression1011); 
-					pushFollow(FOLLOW_exp1_in_expression1014);
+					match(input,46,FOLLOW_46_in_expression1012); 
+					PtGen.pt(12);
+					pushFollow(FOLLOW_exp1_in_expression1016);
 					exp1();
 					state._fsp--;
 
+					PtGen.pt(12);
 					PtGen.pt(24);
 					}
 					break;
@@ -1947,7 +1950,7 @@ public class projetParser extends Parser {
 			// projet.g:148:7: ( exp2 ( 'et' exp2 )* )
 			// projet.g:148:9: exp2 ( 'et' exp2 )*
 			{
-			pushFollow(FOLLOW_exp2_in_exp11034);
+			pushFollow(FOLLOW_exp2_in_exp11037);
 			exp2();
 			state._fsp--;
 
@@ -1964,11 +1967,13 @@ public class projetParser extends Parser {
 				case 1 :
 					// projet.g:148:15: 'et' exp2
 					{
-					match(input,34,FOLLOW_34_in_exp11037); 
-					pushFollow(FOLLOW_exp2_in_exp11040);
+					match(input,34,FOLLOW_34_in_exp11040); 
+					PtGen.pt(12);
+					pushFollow(FOLLOW_exp2_in_exp11044);
 					exp2();
 					state._fsp--;
 
+					PtGen.pt(12);
 					PtGen.pt(23);
 					}
 					break;
@@ -2015,18 +2020,20 @@ public class projetParser extends Parser {
 				case 1 :
 					// projet.g:151:9: 'non' exp2
 					{
-					match(input,45,FOLLOW_45_in_exp21060); 
-					pushFollow(FOLLOW_exp2_in_exp21062);
+					match(input,45,FOLLOW_45_in_exp21065); 
+					PtGen.pt(12);
+					pushFollow(FOLLOW_exp2_in_exp21069);
 					exp2();
 					state._fsp--;
 
+					PtGen.pt(12);
 					PtGen.pt(22);
 					}
 					break;
 				case 2 :
 					// projet.g:152:5: exp3
 					{
-					pushFollow(FOLLOW_exp3_in_exp21070);
+					pushFollow(FOLLOW_exp3_in_exp21078);
 					exp3();
 					state._fsp--;
 
@@ -2052,7 +2059,7 @@ public class projetParser extends Parser {
 			// projet.g:155:7: ( exp4 ( '=' exp4 | '<>' exp4 | '>' exp4 | '>=' exp4 | '<' exp4 | '<=' exp4 )? )
 			// projet.g:155:9: exp4 ( '=' exp4 | '<>' exp4 | '>' exp4 | '>=' exp4 | '<' exp4 | '<=' exp4 )?
 			{
-			pushFollow(FOLLOW_exp4_in_exp31086);
+			pushFollow(FOLLOW_exp4_in_exp31094);
 			exp4();
 			state._fsp--;
 
@@ -2094,66 +2101,78 @@ public class projetParser extends Parser {
 				case 1 :
 					// projet.g:156:5: '=' exp4
 					{
-					match(input,21,FOLLOW_21_in_exp31093); 
-					pushFollow(FOLLOW_exp4_in_exp31097);
+					match(input,21,FOLLOW_21_in_exp31101); 
+					PtGen.pt(11);
+					pushFollow(FOLLOW_exp4_in_exp31106);
 					exp4();
 					state._fsp--;
 
+					PtGen.pt(11);
 					PtGen.pt(16);
 					}
 					break;
 				case 2 :
 					// projet.g:157:5: '<>' exp4
 					{
-					match(input,20,FOLLOW_20_in_exp31105); 
-					pushFollow(FOLLOW_exp4_in_exp31108);
+					match(input,20,FOLLOW_20_in_exp31115); 
+					PtGen.pt(11);
+					pushFollow(FOLLOW_exp4_in_exp31119);
 					exp4();
 					state._fsp--;
 
+					PtGen.pt(11);
 					PtGen.pt(17);
 					}
 					break;
 				case 3 :
 					// projet.g:158:5: '>' exp4
 					{
-					match(input,22,FOLLOW_22_in_exp31116); 
-					pushFollow(FOLLOW_exp4_in_exp31120);
+					match(input,22,FOLLOW_22_in_exp31128); 
+					PtGen.pt(11);
+					pushFollow(FOLLOW_exp4_in_exp31133);
 					exp4();
 					state._fsp--;
 
+					PtGen.pt(11);
 					PtGen.pt(18);
 					}
 					break;
 				case 4 :
 					// projet.g:159:5: '>=' exp4
 					{
-					match(input,23,FOLLOW_23_in_exp31128); 
-					pushFollow(FOLLOW_exp4_in_exp31131);
+					match(input,23,FOLLOW_23_in_exp31142); 
+					PtGen.pt(11);
+					pushFollow(FOLLOW_exp4_in_exp31146);
 					exp4();
 					state._fsp--;
 
+					PtGen.pt(11);
 					PtGen.pt(19);
 					}
 					break;
 				case 5 :
 					// projet.g:160:5: '<' exp4
 					{
-					match(input,18,FOLLOW_18_in_exp31139); 
-					pushFollow(FOLLOW_exp4_in_exp31143);
+					match(input,18,FOLLOW_18_in_exp31155); 
+					PtGen.pt(11);
+					pushFollow(FOLLOW_exp4_in_exp31160);
 					exp4();
 					state._fsp--;
 
+					PtGen.pt(11);
 					PtGen.pt(20);
 					}
 					break;
 				case 6 :
 					// projet.g:161:5: '<=' exp4
 					{
-					match(input,19,FOLLOW_19_in_exp31151); 
-					pushFollow(FOLLOW_exp4_in_exp31154);
+					match(input,19,FOLLOW_19_in_exp31169); 
+					PtGen.pt(11);
+					pushFollow(FOLLOW_exp4_in_exp31173);
 					exp4();
 					state._fsp--;
 
+					PtGen.pt(11);
 					PtGen.pt(21);
 					}
 					break;
@@ -2180,7 +2199,7 @@ public class projetParser extends Parser {
 			// projet.g:165:7: ( exp5 ( '+' exp5 | '-' exp5 )* )
 			// projet.g:165:9: exp5 ( '+' exp5 | '-' exp5 )*
 			{
-			pushFollow(FOLLOW_exp5_in_exp41176);
+			pushFollow(FOLLOW_exp5_in_exp41196);
 			exp5();
 			state._fsp--;
 
@@ -2200,22 +2219,26 @@ public class projetParser extends Parser {
 				case 1 :
 					// projet.g:166:10: '+' exp5
 					{
-					match(input,12,FOLLOW_12_in_exp41188); 
-					pushFollow(FOLLOW_exp5_in_exp41191);
+					match(input,12,FOLLOW_12_in_exp41208); 
+					PtGen.pt(11);
+					pushFollow(FOLLOW_exp5_in_exp41212);
 					exp5();
 					state._fsp--;
 
+					PtGen.pt(11);
 					PtGen.pt(5);
 					}
 					break;
 				case 2 :
 					// projet.g:167:10: '-' exp5
 					{
-					match(input,14,FOLLOW_14_in_exp41204); 
-					pushFollow(FOLLOW_exp5_in_exp41207);
+					match(input,14,FOLLOW_14_in_exp41226); 
+					PtGen.pt(11);
+					pushFollow(FOLLOW_exp5_in_exp41230);
 					exp5();
 					state._fsp--;
 
+					PtGen.pt(11);
 					PtGen.pt(4);
 					}
 					break;
@@ -2245,7 +2268,7 @@ public class projetParser extends Parser {
 			// projet.g:171:7: ( primaire ( '*' primaire | 'div' primaire )* )
 			// projet.g:171:9: primaire ( '*' primaire | 'div' primaire )*
 			{
-			pushFollow(FOLLOW_primaire_in_exp51234);
+			pushFollow(FOLLOW_primaire_in_exp51258);
 			primaire();
 			state._fsp--;
 
@@ -2265,22 +2288,26 @@ public class projetParser extends Parser {
 				case 1 :
 					// projet.g:172:14: '*' primaire
 					{
-					match(input,11,FOLLOW_11_in_exp51250); 
-					pushFollow(FOLLOW_primaire_in_exp51254);
+					match(input,11,FOLLOW_11_in_exp51274); 
+					PtGen.pt(11);
+					pushFollow(FOLLOW_primaire_in_exp51279);
 					primaire();
 					state._fsp--;
 
+					PtGen.pt(11);
 					PtGen.pt(14);
 					}
 					break;
 				case 2 :
 					// projet.g:173:13: 'div' primaire
 					{
-					match(input,31,FOLLOW_31_in_exp51270); 
-					pushFollow(FOLLOW_primaire_in_exp51273);
+					match(input,31,FOLLOW_31_in_exp51296); 
+					PtGen.pt(11);
+					pushFollow(FOLLOW_primaire_in_exp51300);
 					primaire();
 					state._fsp--;
 
+					PtGen.pt(11);
 					PtGen.pt(15);
 					}
 					break;
@@ -2338,7 +2365,7 @@ public class projetParser extends Parser {
 				case 1 :
 					// projet.g:177:11: valeur
 					{
-					pushFollow(FOLLOW_valeur_in_primaire1298);
+					pushFollow(FOLLOW_valeur_in_primaire1326);
 					valeur();
 					state._fsp--;
 
@@ -2348,7 +2375,7 @@ public class projetParser extends Parser {
 				case 2 :
 					// projet.g:178:5: ident
 					{
-					pushFollow(FOLLOW_ident_in_primaire1306);
+					pushFollow(FOLLOW_ident_in_primaire1334);
 					ident();
 					state._fsp--;
 
@@ -2358,12 +2385,12 @@ public class projetParser extends Parser {
 				case 3 :
 					// projet.g:179:5: '(' expression ')'
 					{
-					match(input,9,FOLLOW_9_in_primaire1314); 
-					pushFollow(FOLLOW_expression_in_primaire1316);
+					match(input,9,FOLLOW_9_in_primaire1342); 
+					pushFollow(FOLLOW_expression_in_primaire1344);
 					expression();
 					state._fsp--;
 
-					match(input,10,FOLLOW_10_in_primaire1318); 
+					match(input,10,FOLLOW_10_in_primaire1346); 
 					}
 					break;
 
@@ -2420,7 +2447,7 @@ public class projetParser extends Parser {
 				case 1 :
 					// projet.g:182:11: nbentier
 					{
-					pushFollow(FOLLOW_nbentier_in_valeur1332);
+					pushFollow(FOLLOW_nbentier_in_valeur1360);
 					nbentier();
 					state._fsp--;
 
@@ -2430,9 +2457,9 @@ public class projetParser extends Parser {
 				case 2 :
 					// projet.g:183:5: '+' nbentier
 					{
-					match(input,12,FOLLOW_12_in_valeur1340); 
+					match(input,12,FOLLOW_12_in_valeur1368); 
 					PtGen.pt(11);
-					pushFollow(FOLLOW_nbentier_in_valeur1344);
+					pushFollow(FOLLOW_nbentier_in_valeur1372);
 					nbentier();
 					state._fsp--;
 
@@ -2442,9 +2469,9 @@ public class projetParser extends Parser {
 				case 3 :
 					// projet.g:184:5: '-' nbentier
 					{
-					match(input,14,FOLLOW_14_in_valeur1352); 
+					match(input,14,FOLLOW_14_in_valeur1380); 
 					PtGen.pt(11);
-					pushFollow(FOLLOW_nbentier_in_valeur1356);
+					pushFollow(FOLLOW_nbentier_in_valeur1384);
 					nbentier();
 					state._fsp--;
 
@@ -2454,14 +2481,14 @@ public class projetParser extends Parser {
 				case 4 :
 					// projet.g:185:5: 'vrai'
 					{
-					match(input,54,FOLLOW_54_in_valeur1364); 
+					match(input,54,FOLLOW_54_in_valeur1392); 
 					PtGen.pt(2);
 					}
 					break;
 				case 5 :
 					// projet.g:186:5: 'faux'
 					{
-					match(input,37,FOLLOW_37_in_valeur1372); 
+					match(input,37,FOLLOW_37_in_valeur1400); 
 					PtGen.pt(1);
 					}
 					break;
@@ -2487,7 +2514,7 @@ public class projetParser extends Parser {
 			// projet.g:196:11: ( INT )
 			// projet.g:196:15: INT
 			{
-			INT1=(Token)match(input,INT,FOLLOW_INT_in_nbentier1402); 
+			INT1=(Token)match(input,INT,FOLLOW_INT_in_nbentier1430); 
 			 UtilLex.valNb = Integer.parseInt((INT1!=null?INT1.getText():null));
 			}
 
@@ -2511,7 +2538,7 @@ public class projetParser extends Parser {
 			// projet.g:198:7: ( ID )
 			// projet.g:198:9: ID
 			{
-			ID2=(Token)match(input,ID,FOLLOW_ID_in_ident1413); 
+			ID2=(Token)match(input,ID,FOLLOW_ID_in_ident1441); 
 			 UtilLex.traiterId((ID2!=null?ID2.getText():null), (ID2!=null?ID2.getLine():0)); 
 			}
 
@@ -2660,64 +2687,64 @@ public class projetParser extends Parser {
 	public static final BitSet FOLLOW_expression_in_ecriture856 = new BitSet(new long[]{0x0000000000002400L});
 	public static final BitSet FOLLOW_10_in_ecriture862 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_ident_in_affouappel880 = new BitSet(new long[]{0x0000000000010202L});
-	public static final BitSet FOLLOW_16_in_affouappel888 = new BitSet(new long[]{0x0040202000005260L});
-	public static final BitSet FOLLOW_expression_in_affouappel890 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_effixes_in_affouappel911 = new BitSet(new long[]{0x0000000000000202L});
-	public static final BitSet FOLLOW_effmods_in_affouappel914 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_9_in_effixes946 = new BitSet(new long[]{0x0040202000005660L});
-	public static final BitSet FOLLOW_expression_in_effixes949 = new BitSet(new long[]{0x0000000000002400L});
-	public static final BitSet FOLLOW_13_in_effixes954 = new BitSet(new long[]{0x0040202000005260L});
-	public static final BitSet FOLLOW_expression_in_effixes956 = new BitSet(new long[]{0x0000000000002400L});
-	public static final BitSet FOLLOW_10_in_effixes964 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_9_in_effmods976 = new BitSet(new long[]{0x0000000000000420L});
-	public static final BitSet FOLLOW_ident_in_effmods979 = new BitSet(new long[]{0x0000000000002400L});
-	public static final BitSet FOLLOW_13_in_effmods983 = new BitSet(new long[]{0x0000000000000020L});
-	public static final BitSet FOLLOW_ident_in_effmods985 = new BitSet(new long[]{0x0000000000002400L});
-	public static final BitSet FOLLOW_10_in_effmods993 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_exp1_in_expression1007 = new BitSet(new long[]{0x0000400000000002L});
-	public static final BitSet FOLLOW_46_in_expression1011 = new BitSet(new long[]{0x0040202000005260L});
-	public static final BitSet FOLLOW_exp1_in_expression1014 = new BitSet(new long[]{0x0000400000000002L});
-	public static final BitSet FOLLOW_exp2_in_exp11034 = new BitSet(new long[]{0x0000000400000002L});
-	public static final BitSet FOLLOW_34_in_exp11037 = new BitSet(new long[]{0x0040202000005260L});
-	public static final BitSet FOLLOW_exp2_in_exp11040 = new BitSet(new long[]{0x0000000400000002L});
-	public static final BitSet FOLLOW_45_in_exp21060 = new BitSet(new long[]{0x0040202000005260L});
-	public static final BitSet FOLLOW_exp2_in_exp21062 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_exp3_in_exp21070 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_exp4_in_exp31086 = new BitSet(new long[]{0x0000000000FC0002L});
-	public static final BitSet FOLLOW_21_in_exp31093 = new BitSet(new long[]{0x0040002000005260L});
-	public static final BitSet FOLLOW_exp4_in_exp31097 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_20_in_exp31105 = new BitSet(new long[]{0x0040002000005260L});
-	public static final BitSet FOLLOW_exp4_in_exp31108 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_22_in_exp31116 = new BitSet(new long[]{0x0040002000005260L});
-	public static final BitSet FOLLOW_exp4_in_exp31120 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_23_in_exp31128 = new BitSet(new long[]{0x0040002000005260L});
-	public static final BitSet FOLLOW_exp4_in_exp31131 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_18_in_exp31139 = new BitSet(new long[]{0x0040002000005260L});
-	public static final BitSet FOLLOW_exp4_in_exp31143 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_19_in_exp31151 = new BitSet(new long[]{0x0040002000005260L});
-	public static final BitSet FOLLOW_exp4_in_exp31154 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_exp5_in_exp41176 = new BitSet(new long[]{0x0000000000005002L});
-	public static final BitSet FOLLOW_12_in_exp41188 = new BitSet(new long[]{0x0040002000005260L});
-	public static final BitSet FOLLOW_exp5_in_exp41191 = new BitSet(new long[]{0x0000000000005002L});
-	public static final BitSet FOLLOW_14_in_exp41204 = new BitSet(new long[]{0x0040002000005260L});
-	public static final BitSet FOLLOW_exp5_in_exp41207 = new BitSet(new long[]{0x0000000000005002L});
-	public static final BitSet FOLLOW_primaire_in_exp51234 = new BitSet(new long[]{0x0000000080000802L});
-	public static final BitSet FOLLOW_11_in_exp51250 = new BitSet(new long[]{0x0040002000005260L});
-	public static final BitSet FOLLOW_primaire_in_exp51254 = new BitSet(new long[]{0x0000000080000802L});
-	public static final BitSet FOLLOW_31_in_exp51270 = new BitSet(new long[]{0x0040002000005260L});
-	public static final BitSet FOLLOW_primaire_in_exp51273 = new BitSet(new long[]{0x0000000080000802L});
-	public static final BitSet FOLLOW_valeur_in_primaire1298 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_ident_in_primaire1306 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_9_in_primaire1314 = new BitSet(new long[]{0x0040202000005260L});
-	public static final BitSet FOLLOW_expression_in_primaire1316 = new BitSet(new long[]{0x0000000000000400L});
-	public static final BitSet FOLLOW_10_in_primaire1318 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_nbentier_in_valeur1332 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_12_in_valeur1340 = new BitSet(new long[]{0x0000000000000040L});
-	public static final BitSet FOLLOW_nbentier_in_valeur1344 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_14_in_valeur1352 = new BitSet(new long[]{0x0000000000000040L});
-	public static final BitSet FOLLOW_nbentier_in_valeur1356 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_54_in_valeur1364 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_37_in_valeur1372 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_INT_in_nbentier1402 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_ID_in_ident1413 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_16_in_affouappel889 = new BitSet(new long[]{0x0040202000005260L});
+	public static final BitSet FOLLOW_expression_in_affouappel891 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_effixes_in_affouappel912 = new BitSet(new long[]{0x0000000000000202L});
+	public static final BitSet FOLLOW_effmods_in_affouappel915 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_9_in_effixes947 = new BitSet(new long[]{0x0040202000005660L});
+	public static final BitSet FOLLOW_expression_in_effixes950 = new BitSet(new long[]{0x0000000000002400L});
+	public static final BitSet FOLLOW_13_in_effixes955 = new BitSet(new long[]{0x0040202000005260L});
+	public static final BitSet FOLLOW_expression_in_effixes957 = new BitSet(new long[]{0x0000000000002400L});
+	public static final BitSet FOLLOW_10_in_effixes965 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_9_in_effmods977 = new BitSet(new long[]{0x0000000000000420L});
+	public static final BitSet FOLLOW_ident_in_effmods980 = new BitSet(new long[]{0x0000000000002400L});
+	public static final BitSet FOLLOW_13_in_effmods984 = new BitSet(new long[]{0x0000000000000020L});
+	public static final BitSet FOLLOW_ident_in_effmods986 = new BitSet(new long[]{0x0000000000002400L});
+	public static final BitSet FOLLOW_10_in_effmods994 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_exp1_in_expression1008 = new BitSet(new long[]{0x0000400000000002L});
+	public static final BitSet FOLLOW_46_in_expression1012 = new BitSet(new long[]{0x0040202000005260L});
+	public static final BitSet FOLLOW_exp1_in_expression1016 = new BitSet(new long[]{0x0000400000000002L});
+	public static final BitSet FOLLOW_exp2_in_exp11037 = new BitSet(new long[]{0x0000000400000002L});
+	public static final BitSet FOLLOW_34_in_exp11040 = new BitSet(new long[]{0x0040202000005260L});
+	public static final BitSet FOLLOW_exp2_in_exp11044 = new BitSet(new long[]{0x0000000400000002L});
+	public static final BitSet FOLLOW_45_in_exp21065 = new BitSet(new long[]{0x0040202000005260L});
+	public static final BitSet FOLLOW_exp2_in_exp21069 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_exp3_in_exp21078 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_exp4_in_exp31094 = new BitSet(new long[]{0x0000000000FC0002L});
+	public static final BitSet FOLLOW_21_in_exp31101 = new BitSet(new long[]{0x0040002000005260L});
+	public static final BitSet FOLLOW_exp4_in_exp31106 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_20_in_exp31115 = new BitSet(new long[]{0x0040002000005260L});
+	public static final BitSet FOLLOW_exp4_in_exp31119 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_22_in_exp31128 = new BitSet(new long[]{0x0040002000005260L});
+	public static final BitSet FOLLOW_exp4_in_exp31133 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_23_in_exp31142 = new BitSet(new long[]{0x0040002000005260L});
+	public static final BitSet FOLLOW_exp4_in_exp31146 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_18_in_exp31155 = new BitSet(new long[]{0x0040002000005260L});
+	public static final BitSet FOLLOW_exp4_in_exp31160 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_19_in_exp31169 = new BitSet(new long[]{0x0040002000005260L});
+	public static final BitSet FOLLOW_exp4_in_exp31173 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_exp5_in_exp41196 = new BitSet(new long[]{0x0000000000005002L});
+	public static final BitSet FOLLOW_12_in_exp41208 = new BitSet(new long[]{0x0040002000005260L});
+	public static final BitSet FOLLOW_exp5_in_exp41212 = new BitSet(new long[]{0x0000000000005002L});
+	public static final BitSet FOLLOW_14_in_exp41226 = new BitSet(new long[]{0x0040002000005260L});
+	public static final BitSet FOLLOW_exp5_in_exp41230 = new BitSet(new long[]{0x0000000000005002L});
+	public static final BitSet FOLLOW_primaire_in_exp51258 = new BitSet(new long[]{0x0000000080000802L});
+	public static final BitSet FOLLOW_11_in_exp51274 = new BitSet(new long[]{0x0040002000005260L});
+	public static final BitSet FOLLOW_primaire_in_exp51279 = new BitSet(new long[]{0x0000000080000802L});
+	public static final BitSet FOLLOW_31_in_exp51296 = new BitSet(new long[]{0x0040002000005260L});
+	public static final BitSet FOLLOW_primaire_in_exp51300 = new BitSet(new long[]{0x0000000080000802L});
+	public static final BitSet FOLLOW_valeur_in_primaire1326 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_ident_in_primaire1334 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_9_in_primaire1342 = new BitSet(new long[]{0x0040202000005260L});
+	public static final BitSet FOLLOW_expression_in_primaire1344 = new BitSet(new long[]{0x0000000000000400L});
+	public static final BitSet FOLLOW_10_in_primaire1346 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_nbentier_in_valeur1360 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_12_in_valeur1368 = new BitSet(new long[]{0x0000000000000040L});
+	public static final BitSet FOLLOW_nbentier_in_valeur1372 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_14_in_valeur1380 = new BitSet(new long[]{0x0000000000000040L});
+	public static final BitSet FOLLOW_nbentier_in_valeur1384 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_54_in_valeur1392 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_37_in_valeur1400 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_INT_in_nbentier1430 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_ID_in_ident1441 = new BitSet(new long[]{0x0000000000000002L});
 }

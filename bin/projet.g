@@ -131,7 +131,7 @@ ecriture: 'ecrire' '(' expression ( ',' expression  )* ')' {PtGen.pt(13);}
    ;
   
 affouappel
-  : ident  (    ':=' expression {PtGen.pt(28);}
+  : ident  (  {PtGen.pt(29);}  ':=' expression {PtGen.pt(28);}
             |   (effixes (effmods)?)?  
            )
   ;
@@ -142,35 +142,35 @@ effixes : '(' (expression {PtGen.pt(5);} (',' expression  )*)? ')'
 effmods :'(' (ident  (',' ident  )*)? ')'
   ; 
   
-expression: (exp1) ('ou'  exp1 {PtGen.pt(24);}  )*
+expression: (exp1) ('ou' {PtGen.pt(12);} exp1 {PtGen.pt(12);}{PtGen.pt(24);}  )*
   ;
   
-exp1  : exp2 ('et'  exp2 {PtGen.pt(23);} )* 
+exp1  : exp2 ('et' {PtGen.pt(12);} exp2 {PtGen.pt(12);}{PtGen.pt(23);} )* 
   ;
   
-exp2  : 'non' exp2 {PtGen.pt(22);}
+exp2  : 'non' {PtGen.pt(12);} exp2 {PtGen.pt(12);}{PtGen.pt(22);}
   | exp3  
   ;
   
 exp3  : exp4 
-  ( '='   exp4 {PtGen.pt(16);}
-  | '<>'  exp4 {PtGen.pt(17);}
-  | '>'   exp4 {PtGen.pt(18);}
-  | '>='  exp4 {PtGen.pt(19);}
-  | '<'   exp4 {PtGen.pt(20);}
-  | '<='  exp4 {PtGen.pt(21);}
+  ( '='  {PtGen.pt(11);} exp4 {PtGen.pt(11);}{PtGen.pt(16);}
+  | '<>' {PtGen.pt(11);} exp4 {PtGen.pt(11);}{PtGen.pt(17);}
+  | '>'  {PtGen.pt(11);} exp4 {PtGen.pt(11);}{PtGen.pt(18);}
+  | '>=' {PtGen.pt(11);} exp4 {PtGen.pt(11);}{PtGen.pt(19);}
+  | '<'  {PtGen.pt(11);} exp4 {PtGen.pt(11);}{PtGen.pt(20);}
+  | '<=' {PtGen.pt(11);} exp4 {PtGen.pt(11);}{PtGen.pt(21);}
   ) ?
   ;
   
 exp4  : exp5 
-        ('+'  exp5 {PtGen.pt(5);}
-        |'-'  exp5 {PtGen.pt(4);}
+        ('+' {PtGen.pt(11);} exp5 {PtGen.pt(11);}{PtGen.pt(5);}
+        |'-' {PtGen.pt(11);} exp5 {PtGen.pt(11);}{PtGen.pt(4);}
         )*
   ;
   
 exp5  : primaire 
-        (    '*'   primaire {PtGen.pt(14);}
-          | 'div'  primaire {PtGen.pt(15);}
+        (    '*' {PtGen.pt(11);}  primaire {PtGen.pt(11);}{PtGen.pt(14);}
+          | 'div' {PtGen.pt(11);} primaire {PtGen.pt(11);}{PtGen.pt(15);}
         )*
   ;
   

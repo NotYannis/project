@@ -219,6 +219,8 @@ public class PtGen {
 	private static int vCour; // valeur de l'expression compilée le cas echeant
 	private static int bp;
 	private static int y;
+	private static int x;
+	private static int aAffecter; //Variable a affecter
 
 	// compilation séparée : vecteur de translation et descripteur
 	// -----------------------------------------------------------
@@ -254,6 +256,7 @@ public class PtGen {
 		tCour = NEUTRE;
 		bp = 0;
 		y = 0; //indice de placement des varglobales
+		x = 0;
 	} // initialisations
 
 	// autres variables et procédures introduites par le trinome
@@ -306,7 +309,7 @@ public class PtGen {
 			break;
 		//Maj table des symboles
 		case 26:
-			int x = presentIdent(1);
+			x = presentIdent(1);
 			if (x == 0) UtilLex.messErr("identificateur non déclaré");
 			tCour = tabSymb[x].type;
 			switch(tabSymb[x].categorie){
@@ -393,11 +396,21 @@ public class PtGen {
 		case 24:
 			produire(OU);
 			break;
+		//Affectation de variable globale
 		case 28:
 			produire(AFFECTERG);
+			produire(aAffecter);
+			break;
+		case 29:
 			x = presentIdent(1);
 			if (x == 0) UtilLex.messErr("identificateur non déclaré");
-			else produire(tabSymb[x].info);
+			switch(tabSymb[x].categorie){
+				case CONSTANTE :
+					UtilLex.messErr("Variable attendue");
+					break;
+				case VARGLOBALE : aAffecter = tabSymb[x].info;
+					break;
+			}
 			break;
 		//Prochain ptgen : 29
 		case 255:
