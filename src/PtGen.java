@@ -391,7 +391,7 @@ public class PtGen {
 		//Maj table des symboles
 		case 27:
 			x = presentIdent(1);
-			if (x == 0) UtilLex.messErr("identificateur non déclaré");
+			if (x == 0) UtilLex.messErr("Maj tabSymb : identificateur non déclaré");
 			tCour = tabSymb[x].type;
 			switch(tabSymb[x].categorie){
 				case CONSTANTE : produire(EMPILER); produire(tabSymb[x].info);
@@ -411,7 +411,7 @@ public class PtGen {
 		//Teste si c'est une variable à affecter et l'enregistre
 		case 29:
 			x = presentIdent(1);
-			if (x == 0) UtilLex.messErr("identificateur non déclaré");
+			if (x == 0) UtilLex.messErr("Enregistrement variable : identificateur non déclaré");
 			switch(tabSymb[x].categorie){
 				case CONSTANTE :
 					UtilLex.messErr("Variable globale attendue");
@@ -425,7 +425,7 @@ public class PtGen {
 		//Lecture
 		case 30:
 			x = presentIdent(1);
-			if (x == 0) UtilLex.messErr("identificateur non déclaré");
+			if (x == 0) UtilLex.messErr("Lecture : identificateur non déclaré");
 			switch(tabSymb[x].type){
 				case BOOL :
 					produire(LIREBOOL);
@@ -460,7 +460,7 @@ public class PtGen {
 		case 33:
 			po[pileRep.depiler()] = ipo+1;
 			break;
-			
+
 		case 34:
 			pileRep.empiler(ipo+1);
 			break;
@@ -480,7 +480,23 @@ public class PtGen {
 			produire(po[h-1]);
 			po[h]=ipo+1;*/
 			break;
-			
+		//Debut cond : chaine de reprise vide
+		case 37:
+			pileRep.empiler(0);
+			break;
+		//après la condition : besoin d'emplier l'@ de la future valeur à changer
+		//et faire un bsifaux
+		case 38:
+			verifBool();
+			produire(BSIFAUX);
+			produire(0); //provisoire
+			pileRep.empiler(ipo + 1);
+			break;
+		//après 1er bincond
+		case 39:
+			produire(BINCOND);
+			po[pileRep.depiler()] = ipo + 1;
+			break;
 		case 255:
 			produire(ARRET);
 			constGen();
