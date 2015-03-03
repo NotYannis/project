@@ -460,6 +460,27 @@ public class PtGen {
 		case 33:
 			po[pileRep.depiler()] = ipo+1;
 			break;
+			
+		case 34:
+			pileRep.empiler(ipo+1);
+			break;
+			
+		case 35:
+			verifBool();
+			produire(BSIFAUX);
+			produire(po[ipo]);
+			pileRep.empiler(ipo);
+			break;
+			
+		case 36:
+			produire(BINCOND);
+			po[pileRep.depiler()]=ipo+2;
+			produire(po[pileRep.depiler()]);
+			/*int h=pileRep.depiler();
+			produire(po[h-1]);
+			po[h]=ipo+1;*/
+			break;
+			
 		case 255:
 			produire(ARRET);
 			constGen();
