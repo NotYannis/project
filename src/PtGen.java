@@ -305,22 +305,7 @@ public class PtGen {
 		// code Mapile reserver
 		case 6:
 			produire(RESERVER);
-			produire(y); //Nb de variables à sauvegarder
-			break;
-		//Maj table des symboles
-		case 26:
-			x = presentIdent(1);
-			if (x == 0) UtilLex.messErr("identificateur non déclaré");
-			tCour = tabSymb[x].type;
-			switch(tabSymb[x].categorie){
-				case CONSTANTE : produire(EMPILER); produire(tabSymb[x].info);
-					break;
-				case VARGLOBALE : produire(CONTENUG); produire(tabSymb[x].info);
-					break;
-				default : 
-					break;
-			}
-			afftabSymb();
+			produire(bp); //Nb de variables à sauvegarder
 			break;
 		// declaration consts
 		case 7:
@@ -330,7 +315,7 @@ public class PtGen {
 			}
 			afftabSymb();
 			break;
-		// ;
+		// Declaration de varglibale
 		case 8:
 			if (presentIdent(1) == 0) {
 				placeIdent(UtilLex.numId, VARGLOBALE, tCour, y);
@@ -356,7 +341,8 @@ public class PtGen {
 			break;
 		// ecriture
 		case 13:
-			produire(ECRENT);
+			if(tCour == ENT) produire(ECRENT);
+			else if(tCour == BOOL) produire(ECRBOOL);
 			break;
 		case 14:
 			produire(MUL);
@@ -368,21 +354,27 @@ public class PtGen {
 		// traitement des expressions 3
 		case 16:
 			produire(EG);
+			tCour = BOOL;
 			break;
 		case 17:
 			produire(DIFF);
+			tCour = BOOL;
 			break;
 		case 18:
 			produire(SUP);
+			tCour = BOOL;
 			break;
 		case 19:
 			produire(SUPEG);
+			tCour = BOOL;
 			break;
 		case 20:
 			produire(INF);
+			tCour = BOOL;
 			break;
 		case 21:
 			produire(INFEG);
+			tCour = BOOL;
 			break;
 		// NON
 		case 22:
@@ -396,35 +388,78 @@ public class PtGen {
 		case 24:
 			produire(OU);
 			break;
+		//Maj table des symboles
+		case 26:
+			x = presentIdent(1);
+			if (x == 0) UtilLex.messErr("identificateur non déclaré");
+			tCour = tabSymb[x].type;
+			switch(tabSymb[x].categorie){
+				case CONSTANTE : produire(EMPILER); produire(tabSymb[x].info);
+					break;
+				case VARGLOBALE : produire(CONTENUG); produire(tabSymb[x].info);
+					break;
+				default : UtilLex.messErr("Maj tabSymb : cas non pris en compte");
+					break;
+			}
+			afftabSymb();
+			break;
 		//Affectation de variable globale
 		case 28:
 			produire(AFFECTERG);
 			produire(aAffecter);
 			break;
+		//Teste si c'est une variable à affecter et l'enregistre
 		case 29:
 			x = presentIdent(1);
 			if (x == 0) UtilLex.messErr("identificateur non déclaré");
 			switch(tabSymb[x].categorie){
 				case CONSTANTE :
-					UtilLex.messErr("Variable attendue");
+					UtilLex.messErr("Variable globale attendue");
 					break;
 				case VARGLOBALE : aAffecter = tabSymb[x].info;
 					break;
+				default : UtilLex.messErr("Enregistrement variable : cas non pris en compte");
+					break;
 			}
 			break;
+		//Lecture
 		case 30:
 			x = presentIdent(1);
 			if (x == 0) UtilLex.messErr("identificateur non déclaré");
 			switch(tabSymb[x].type){
 				case BOOL :
 					produire(LIREBOOL);
+					produire(AFFECTERG);
+					produire(tabSymb[x].info);
 					break;
 				case ENT :
 					produire(LIRENT);
+					produire(AFFECTERG);
+					produire(tabSymb[x].info);
+					break;
+				default : UtilLex.messErr("Lecture : cas non pris en compte");
 					break;
 			}
 			break;
 		//Prochain ptgen : 31
+		//Si
+		case 31 :
+			verifBool();
+			produire(BSIFAUX);
+			produire(po[ipo]);//Provisoire
+			pileRep.empiler(ipo);
+			break;
+		//Alors
+		case 32:
+			produire(BINCOND);
+			produire(po[ipo]);//Provisoire
+			po[pileRep.depiler()]=ipo+1;
+			pileRep.empiler(ipo);
+			break;
+		//fin si
+		case 33:
+			po[pileRep.depiler()] = ipo+1;
+			break;
 		case 255:
 			produire(ARRET);
 			constGen();

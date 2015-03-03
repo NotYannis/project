@@ -7,7 +7,7 @@ var ent x,y,z;
 	bool d, e;
 	ent f;
 debut
-	f := 12;
+	d := m > n;
 	x := f + m;
 	lire(f);
 fin

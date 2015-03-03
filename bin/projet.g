@@ -113,7 +113,7 @@ instruction
   |
   ;
   
-inssi : 'si' expression 'alors' instructions ('sinon'  instructions)? 'fsi' 
+inssi : 'si' expression {PtGen.pt(31);}'alors' instructions {PtGen.pt(32);} ('sinon'  instructions)? {PtGen.pt(33);} 'fsi' 
   ;
   
 inscond : 'cond'  expression  ':' instructions 
@@ -131,7 +131,7 @@ ecriture: 'ecrire' '(' expression ( ',' expression  )* ')' {PtGen.pt(13);}
    ;
   
 affouappel
-  : ident  (  {PtGen.pt(29);}  ':=' expression {PtGen.pt(28);}
+  : ident  (   ':=' {PtGen.pt(29);} expression {PtGen.pt(28);}
             |   (effixes (effmods)?)?  
            )
   ;
