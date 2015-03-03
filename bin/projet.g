@@ -64,14 +64,14 @@ specif  : ident  ( 'fixe' '(' type  ( ',' type  )* ')' )?
                  ( 'mod'  '(' type  ( ',' type  )* ')' )? 
   ;
   
-consts  : 'const' ( ident '=' valeur {PtGen.pt(7);} ptvg  )+ 
+consts  : 'const' ( ident '=' valeur {PtGen.pt(9);} ptvg  )+ 
   ;
   
-vars  : 'var' ( type ident {PtGen.pt(8);} ( ','  ident {PtGen.pt(8);} )* ptvg )+ {PtGen.pt(6);}
+vars  : 'var' ( type ident {PtGen.pt(10);} ( ','  ident {PtGen.pt(10);} )* ptvg )+ {PtGen.pt(8);}
   ;
   
-type  : 'ent' {PtGen.pt(10);}
-  |     'bool' {PtGen.pt(9);}
+type  : 'ent' {PtGen.pt(12);}
+  |     'bool' {PtGen.pt(11);}
   ;
 
 decprocs: (decproc ptvg)+
@@ -127,7 +127,7 @@ boucle  : 'ttq'  expression 'faire' instructions 'fait'
 lecture: 'lire' '(' ident {PtGen.pt(30);} ( ',' ident  )* ')' 
   ;
   
-ecriture: 'ecrire' '(' expression ( ',' expression  )* ')' {PtGen.pt(13);}
+ecriture: 'ecrire' '(' expression ( ',' expression  )* ')' {PtGen.pt(15);}
    ;
   
 affouappel
@@ -136,52 +136,52 @@ affouappel
            )
   ;
   
-effixes : '(' (expression {PtGen.pt(5);} (',' expression  )*)? ')'
+effixes : '(' (expression (',' expression  )*)? ')'
   ;
   
 effmods :'(' (ident  (',' ident  )*)? ')'
   ; 
   
-expression: (exp1) ('ou' {PtGen.pt(12);} exp1 {PtGen.pt(12);}{PtGen.pt(24);}  )*
+expression: (exp1) ('ou' {PtGen.pt(14);} exp1 {PtGen.pt(14);}{PtGen.pt(26);}  )*
   ;
   
-exp1  : exp2 ('et' {PtGen.pt(12);} exp2 {PtGen.pt(12);}{PtGen.pt(23);} )* 
+exp1  : exp2 ('et' {PtGen.pt(14);} exp2 {PtGen.pt(14);}{PtGen.pt(25);} )* 
   ;
   
-exp2  : 'non' {PtGen.pt(12);} exp2 {PtGen.pt(12);}{PtGen.pt(22);}
+exp2  : 'non' {PtGen.pt(14);} exp2 {PtGen.pt(14);}{PtGen.pt(24);}
   | exp3  
   ;
   
 exp3  : exp4 
-  ( '='  {PtGen.pt(11);} exp4 {PtGen.pt(11);}{PtGen.pt(16);}
-  | '<>' {PtGen.pt(11);} exp4 {PtGen.pt(11);}{PtGen.pt(17);}
-  | '>'  {PtGen.pt(11);} exp4 {PtGen.pt(11);}{PtGen.pt(18);}
-  | '>=' {PtGen.pt(11);} exp4 {PtGen.pt(11);}{PtGen.pt(19);}
-  | '<'  {PtGen.pt(11);} exp4 {PtGen.pt(11);}{PtGen.pt(20);}
-  | '<=' {PtGen.pt(11);} exp4 {PtGen.pt(11);}{PtGen.pt(21);}
+  ( '='  {PtGen.pt(13);} exp4 {PtGen.pt(13);}{PtGen.pt(18);}
+  | '<>' {PtGen.pt(13);} exp4 {PtGen.pt(13);}{PtGen.pt(19);}
+  | '>'  {PtGen.pt(13);} exp4 {PtGen.pt(13);}{PtGen.pt(20);}
+  | '>=' {PtGen.pt(13);} exp4 {PtGen.pt(13);}{PtGen.pt(21);}
+  | '<'  {PtGen.pt(13);} exp4 {PtGen.pt(13);}{PtGen.pt(22);}
+  | '<=' {PtGen.pt(13);} exp4 {PtGen.pt(13);}{PtGen.pt(23);}
   ) ?
   ;
   
 exp4  : exp5 
-        ('+' {PtGen.pt(11);} exp5 {PtGen.pt(11);}{PtGen.pt(5);}
-        |'-' {PtGen.pt(11);} exp5 {PtGen.pt(11);}{PtGen.pt(4);}
+        ('+' {PtGen.pt(13);} exp5 {PtGen.pt(13);}{PtGen.pt(7);}
+        |'-' {PtGen.pt(13);} exp5 {PtGen.pt(13);}{PtGen.pt(6);}
         )*
   ;
   
 exp5  : primaire 
-        (    '*' {PtGen.pt(11);}  primaire {PtGen.pt(11);}{PtGen.pt(14);}
-          | 'div' {PtGen.pt(11);} primaire {PtGen.pt(11);}{PtGen.pt(15);}
+        (    '*' {PtGen.pt(13);}  primaire {PtGen.pt(13);}{PtGen.pt(16);}
+          | 'div' {PtGen.pt(13);} primaire {PtGen.pt(13);}{PtGen.pt(17);}
         )*
   ;
   
 primaire: valeur {PtGen.pt(3);}
-  | ident {PtGen.pt(26);}
+  | ident {PtGen.pt(27);}
   | '(' expression ')'
   ;
   
-valeur  : nbentier {PtGen.pt(27);}
-  | '+' {PtGen.pt(11);} nbentier {PtGen.pt(27);}
-  | '-' {PtGen.pt(11);} nbentier {PtGen.pt(25);}
+valeur  : nbentier {PtGen.pt(4);}
+  | '+' {PtGen.pt(13);} nbentier {PtGen.pt(4);}
+  | '-' {PtGen.pt(13);} nbentier {PtGen.pt(5);}
   | 'vrai' {PtGen.pt(2);}
   | 'faux' {PtGen.pt(1);}
   ;

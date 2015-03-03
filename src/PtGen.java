@@ -285,30 +285,30 @@ public class PtGen {
 			produire(vCour);
 			break;
 		//nbentier positif
-		case 27:
+		case 4:
 			tCour = ENT;
 			vCour = UtilLex.valNb;
 			break;
 		// nbentier négatif
-		case 25:
+		case 5:
 			tCour = ENT;
 			vCour = -UtilLex.valNb;
 			break;
 		// -
-		case 4:
+		case 6:
 			produire(SOUS);
 			break;
 		// +
-		case 5:
+		case 7:
 			produire(ADD);
 			break;
 		// code Mapile reserver
-		case 6:
+		case 8:
 			produire(RESERVER);
 			produire(bp); //Nb de variables à sauvegarder
 			break;
 		// declaration consts
-		case 7:
+		case 9:
 			//y = UtilLex.numId;
 			if (presentIdent(1) == 0) {
 				placeIdent(UtilLex.numId, CONSTANTE, tCour, vCour);
@@ -316,80 +316,80 @@ public class PtGen {
 			afftabSymb();
 			break;
 		// Declaration de varglibale
-		case 8:
+		case 10:
 			if (presentIdent(1) == 0) {
-				placeIdent(UtilLex.numId, VARGLOBALE, tCour, y);
-				y++;
+				placeIdent(UtilLex.numId, VARGLOBALE, tCour, bp);
+				bp++;
 			}
 			afftabSymb();
 			break;
 		// type bool
-		case 9:
+		case 11:
 			tCour = BOOL;
 			break;
 		// type ent
-		case 10:
+		case 12:
 			tCour = ENT;
 			break;
 		// test entier
-		case 11:
+		case 13:
 			verifEnt();
 			break;
 		// test bool
-		case 12:
+		case 14:
 			verifBool();
 			break;
 		// ecriture
-		case 13:
+		case 15:
 			if(tCour == ENT) produire(ECRENT);
 			else if(tCour == BOOL) produire(ECRBOOL);
 			break;
-		case 14:
+		case 16:
 			produire(MUL);
 			break;
 		// /
-		case 15:
+		case 17:
 			produire(DIV);
 			break;
 		// traitement des expressions 3
-		case 16:
+		case 18:
 			produire(EG);
 			tCour = BOOL;
 			break;
-		case 17:
+		case 19:
 			produire(DIFF);
 			tCour = BOOL;
 			break;
-		case 18:
+		case 20:
 			produire(SUP);
 			tCour = BOOL;
 			break;
-		case 19:
+		case 21:
 			produire(SUPEG);
 			tCour = BOOL;
 			break;
-		case 20:
+		case 22:
 			produire(INF);
 			tCour = BOOL;
 			break;
-		case 21:
+		case 23:
 			produire(INFEG);
 			tCour = BOOL;
 			break;
 		// NON
-		case 22:
+		case 24:
 			produire(NON);
 			break;
 		// ET
-		case 23:
+		case 25:
 			produire(ET);
 			break;
 		// OU
-		case 24:
+		case 26:
 			produire(OU);
 			break;
 		//Maj table des symboles
-		case 26:
+		case 27:
 			x = presentIdent(1);
 			if (x == 0) UtilLex.messErr("identificateur non déclaré");
 			tCour = tabSymb[x].type;

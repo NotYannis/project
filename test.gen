@@ -10,4 +10,5 @@ FICHIER test.gen :
   14  add       
   15  affecterg       0
   17  lirent    
-  18  arrêt     
+  18  affecterg       5
+  20  arrêt     
