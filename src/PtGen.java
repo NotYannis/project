@@ -442,31 +442,28 @@ public class PtGen {
 			switch (tabSymb[x].type) {
 			case BOOL:
 				produire(LIREBOOL);
-				produire(AFFECTERG);
-				produire(tabSymb[x].info);
 				break;
 			case ENT:
 				produire(LIRENT);
-				produire(AFFECTERG);
-				produire(tabSymb[x].info);
 				break;
 			default:
 				UtilLex.messErr("Lecture : cas non pris en compte");
 				break;
 			}
+			produire(AFFECTERG);
+			produire(tabSymb[x].info);
 			break;
-		// Prochain ptgen : 31
-		// Si
+		// Si OU condition d'arrêt de ttq OU cond
 		case 31:
 			verifBool();
 			produire(BSIFAUX);
-			produire(po[ipo]);// Provisoire
+			produire(po[ipo]);
 			pileRep.empiler(ipo);
 			break;
 		// Alors
 		case 32:
 			produire(BINCOND);
-			produire(po[ipo]);// Provisoire
+			produire(po[ipo]);
 			po[pileRep.depiler()] = ipo + 1;
 			pileRep.empiler(ipo);
 			break;
@@ -474,18 +471,10 @@ public class PtGen {
 		case 33:
 			po[pileRep.depiler()] = ipo + 1;
 			break;
-
 		// ttq
 		case 34:
 			pileRep.empiler(ipo + 1);
 			System.out.println("apres ttq ipo " + ipo);
-			break;
-		// condition d'arret
-		case 35:
-			verifBool();
-			produire(BSIFAUX);
-			produire(po[ipo]);
-			pileRep.empiler(ipo);
 			break;
 		// sortie de boucle
 		case 36:
@@ -497,28 +486,24 @@ public class PtGen {
 		case 37:
 			pileRep.empiler(0);
 			break;
-		// après la condition : besoin d'emplier l'@ de la future valeur à
-		// changer
-		// et faire un bsifaux
-		case 38:
-			verifBool();
-			produire(BSIFAUX);
-			produire(0); // provisoire
-			pileRep.empiler(ipo + 1);
-			break;
 		// après 1er bincond
 		case 39:
 			produire(BINCOND);
+			produire(po[ipo]);
 			po[pileRep.depiler()] = ipo + 1;
+			pileRep.empiler(ipo);
+			break;
+		//Fin du cond, remonte la chaîne de reprise
+		case 40:
+			while(pileRep.depiler() != 0){
+				po[pileRep.depiler()] = ipo;
+			}
 			break;
 		case 255:
 			produire(ARRET);
 			constGen();
 			constObj();
 			break;
-		// traitement des expressions
-
-		// traitement du si
 
 		// traitement du cond
 

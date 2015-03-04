@@ -7,7 +7,10 @@ var ent x,y,z;
 	bool d, e;
 	ent f;
 debut
-	d := m > n;
-	x := f + m;
-	lire(f);
+	x := 0;
+	y := 5;
+	ttq x < y faire
+		x := x + 1;
+	fait;
+	ecrire(x); 
 fin
