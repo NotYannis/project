@@ -489,14 +489,18 @@ public class PtGen {
 		// après 1er bincond
 		case 39:
 			produire(BINCOND);
-			produire(po[ipo]);
+			produire(0);
 			po[pileRep.depiler()] = ipo + 1;
 			pileRep.empiler(ipo);
 			break;
 		//Fin du cond, remonte la chaîne de reprise
 		case 40:
-			while(pileRep.depiler() != 0){
-				po[pileRep.depiler()] = ipo;
+			int x = pileRep.depiler(); //Besoin d'une variable pour ne pas dépiler deux fois en faisant po[pileRep.depiler()]
+			while(x != 0){
+				po[x] = ipo + 1;
+				x = pileRep.depiler();
+				pileRep.empiler(x);
+				pileRep.depiler();
 			}
 			break;
 		case 255:

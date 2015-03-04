@@ -1,11 +1,17 @@
 programme test :
 const m=3;
 	n=-5;
-	b=vrai;
-	c=faux;
-var ent re,y,z;
-	bool d, e;
-	ent f;
+	o=vrai;
+	p=faux;
+var ent b, c;
+	bool a;
 debut
-	ecrire(n+m);
+	a := faux; b := 0; c := 1;
+	cond
+		a: ecrire(1),
+		b > c : ecrire (2),
+		b > m : ecrire(3),
+		c > b : ecrire(4)
+	fcond;
+	ecrent(12);
 fin
