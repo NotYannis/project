@@ -499,8 +499,6 @@ public class PtGen {
 			while(x != 0){
 				po[x] = ipo + 1;
 				x = pileRep.depiler();
-				pileRep.empiler(x);
-				pileRep.depiler();
 			}
 			break;
 		case 255:
