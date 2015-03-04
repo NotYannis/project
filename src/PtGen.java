@@ -211,16 +211,17 @@ public class PtGen {
 
 	// autres variables et procédures fournies
 	// ---------------------------------------
-	public static String trinome = "ATTARD DOUX RADENAC"; // RENSEIGNER ICI LES NOMS DU
-													// TRINOME, constitués
-													// exclusivement de lettres
+	public static String trinome = "ATTARD DOUX RADENAC"; // RENSEIGNER ICI LES
+															// NOMS DU
+	// TRINOME, constitués
+	// exclusivement de lettres
 
 	private static int tCour; // type de l'expression compilée
 	private static int vCour; // valeur de l'expression compilée le cas echeant
 	private static int bp;
 	private static int y;
 	private static int x;
-	private static int aAffecter; //Variable a affecter
+	private static int aAffecter; // Variable a affecter
 
 	// compilation séparée : vecteur de translation et descripteur
 	// -----------------------------------------------------------
@@ -255,7 +256,7 @@ public class PtGen {
 		ipo = 0;
 		tCour = NEUTRE;
 		bp = 0;
-		y = 0; //indice de placement des varglobales
+		y = 0; // indice de placement des varglobales
 		x = 0;
 	} // initialisations
 
@@ -284,7 +285,7 @@ public class PtGen {
 			produire(EMPILER);
 			produire(vCour);
 			break;
-		//nbentier positif
+		// nbentier positif
 		case 4:
 			tCour = ENT;
 			vCour = UtilLex.valNb;
@@ -305,11 +306,11 @@ public class PtGen {
 		// code Mapile reserver
 		case 8:
 			produire(RESERVER);
-			produire(bp); //Nb de variables à sauvegarder
+			produire(bp); // Nb de variables à sauvegarder
 			break;
 		// declaration consts
 		case 9:
-			//y = UtilLex.numId;
+			// y = UtilLex.numId;
 			if (presentIdent(1) == 0) {
 				placeIdent(UtilLex.numId, CONSTANTE, tCour, vCour);
 			}
@@ -341,8 +342,10 @@ public class PtGen {
 			break;
 		// ecriture
 		case 15:
-			if(tCour == ENT) produire(ECRENT);
-			else if(tCour == BOOL) produire(ECRBOOL);
+			if (tCour == ENT)
+				produire(ECRENT);
+			else if (tCour == BOOL)
+				produire(ECRBOOL);
 			break;
 		case 16:
 			produire(MUL);
@@ -388,111 +391,122 @@ public class PtGen {
 		case 26:
 			produire(OU);
 			break;
-		//Maj table des symboles
+		// Maj table des symboles
 		case 27:
 			x = presentIdent(1);
-			if (x == 0) UtilLex.messErr("Maj tabSymb : identificateur non déclaré");
+			if (x == 0)
+				UtilLex.messErr("Maj tabSymb : identificateur non déclaré");
 			tCour = tabSymb[x].type;
-			switch(tabSymb[x].categorie){
-				case CONSTANTE : produire(EMPILER); produire(tabSymb[x].info);
-					break;
-				case VARGLOBALE : produire(CONTENUG); produire(tabSymb[x].info);
-					break;
-				default : UtilLex.messErr("Maj tabSymb : cas non pris en compte");
-					break;
+			switch (tabSymb[x].categorie) {
+			case CONSTANTE:
+				produire(EMPILER);
+				produire(tabSymb[x].info);
+				break;
+			case VARGLOBALE:
+				produire(CONTENUG);
+				produire(tabSymb[x].info);
+				break;
+			default:
+				UtilLex.messErr("Maj tabSymb : cas non pris en compte");
+				break;
 			}
 			afftabSymb();
 			break;
-		//Affectation de variable globale
+		// Affectation de variable globale
 		case 28:
 			produire(AFFECTERG);
 			produire(aAffecter);
 			break;
-		//Teste si c'est une variable à affecter et l'enregistre
+		// Teste si c'est une variable à affecter et l'enregistre
 		case 29:
 			x = presentIdent(1);
-			if (x == 0) UtilLex.messErr("Enregistrement variable : identificateur non déclaré");
-			switch(tabSymb[x].categorie){
-				case CONSTANTE :
-					UtilLex.messErr("Variable globale attendue");
-					break;
-				case VARGLOBALE : aAffecter = tabSymb[x].info;
-					break;
-				default : UtilLex.messErr("Enregistrement variable : cas non pris en compte");
-					break;
+			if (x == 0)
+				UtilLex.messErr("Enregistrement variable : identificateur non déclaré");
+			switch (tabSymb[x].categorie) {
+			case CONSTANTE:
+				UtilLex.messErr("Variable globale attendue");
+				break;
+			case VARGLOBALE:
+				aAffecter = tabSymb[x].info;
+				break;
+			default:
+				UtilLex.messErr("Enregistrement variable : cas non pris en compte");
+				break;
 			}
 			break;
-		//Lecture
+		// Lecture
 		case 30:
 			x = presentIdent(1);
-			if (x == 0) UtilLex.messErr("Lecture : identificateur non déclaré");
-			switch(tabSymb[x].type){
-				case BOOL :
-					produire(LIREBOOL);
-					produire(AFFECTERG);
-					produire(tabSymb[x].info);
-					break;
-				case ENT :
-					produire(LIRENT);
-					produire(AFFECTERG);
-					produire(tabSymb[x].info);
-					break;
-				default : UtilLex.messErr("Lecture : cas non pris en compte");
-					break;
+			if (x == 0)
+				UtilLex.messErr("Lecture : identificateur non déclaré");
+			switch (tabSymb[x].type) {
+			case BOOL:
+				produire(LIREBOOL);
+				produire(AFFECTERG);
+				produire(tabSymb[x].info);
+				break;
+			case ENT:
+				produire(LIRENT);
+				produire(AFFECTERG);
+				produire(tabSymb[x].info);
+				break;
+			default:
+				UtilLex.messErr("Lecture : cas non pris en compte");
+				break;
 			}
 			break;
-		//Prochain ptgen : 31
-		//Si
-		case 31 :
+		// Prochain ptgen : 31
+		// Si
+		case 31:
 			verifBool();
 			produire(BSIFAUX);
-			produire(po[ipo]);//Provisoire
+			produire(po[ipo]);// Provisoire
 			pileRep.empiler(ipo);
 			break;
-		//Alors
+		// Alors
 		case 32:
 			produire(BINCOND);
-			produire(po[ipo]);//Provisoire
-			po[pileRep.depiler()]=ipo+1;
+			produire(po[ipo]);// Provisoire
+			po[pileRep.depiler()] = ipo + 1;
 			pileRep.empiler(ipo);
 			break;
-		//fin si
+		// fin si
 		case 33:
-			po[pileRep.depiler()] = ipo+1;
+			po[pileRep.depiler()] = ipo + 1;
 			break;
 
+		// ttq
 		case 34:
-			pileRep.empiler(ipo+1);
+			pileRep.empiler(ipo + 1);
+			System.out.println("apres ttq ipo " + ipo);
 			break;
-			
+		// condition d'arret
 		case 35:
 			verifBool();
 			produire(BSIFAUX);
 			produire(po[ipo]);
 			pileRep.empiler(ipo);
 			break;
-			
+		// sortie de boucle
 		case 36:
 			produire(BINCOND);
-			po[pileRep.depiler()]=ipo+2;
-			produire(po[pileRep.depiler()]);
-			/*int h=pileRep.depiler();
-			produire(po[h-1]);
-			po[h]=ipo+1;*/
+			po[pileRep.depiler()] = ipo + 2;
+			produire(pileRep.depiler());
 			break;
-		//Debut cond : chaine de reprise vide
+		// Debut cond : chaine de reprise vide
 		case 37:
 			pileRep.empiler(0);
 			break;
-		//après la condition : besoin d'emplier l'@ de la future valeur à changer
-		//et faire un bsifaux
+		// après la condition : besoin d'emplier l'@ de la future valeur à
+		// changer
+		// et faire un bsifaux
 		case 38:
 			verifBool();
 			produire(BSIFAUX);
-			produire(0); //provisoire
+			produire(0); // provisoire
 			pileRep.empiler(ipo + 1);
 			break;
-		//après 1er bincond
+		// après 1er bincond
 		case 39:
 			produire(BINCOND);
 			po[pileRep.depiler()] = ipo + 1;
@@ -511,7 +525,8 @@ public class PtGen {
 		// etc
 
 		default:
-			System.out.println("Point de génération non prévu dans votre liste");
+			System.out
+					.println("Point de génération non prévu dans votre liste");
 			break;
 
 		}
