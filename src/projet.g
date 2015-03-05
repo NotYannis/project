@@ -96,7 +96,7 @@ pf  : type ident  ( ',' ident  )*
 parmod  : 'mod' '(' pm ( ';' pm)* ')'
   ;
   
-pm  : type ident  ( ',' ident  )*
+pm  : type ident  {ptGen.pt(43);} ( ',' ident  {ptGen.pt(43);} )*
   ;
   
 instructions
@@ -116,12 +116,12 @@ instruction
 inssi : 'si' expression {PtGen.pt(31);} 'alors' instructions ('sinon' {PtGen.pt(32);} instructions)? {PtGen.pt(33);} 'fsi' 
   ;
   
-inscond : 'cond' {PtGen.pt(37);} expression {PtGen.pt(31);} ':' instructions 
-          (',' {PtGen.pt(39);} expression {PtGen.pt(31);} ':' instructions )* 
-          ('aut' {PtGen.pt(31);} instructions)?  'fcond' {PtGen.pt(40);}
+inscond : 'cond' {PtGen.pt(36);} expression {PtGen.pt(31);} ':' instructions 
+          (',' {PtGen.pt(38);} expression {PtGen.pt(31);} ':' instructions )* 
+          ('aut' {PtGen.pt(37);} instructions)?  'fcond' {PtGen.pt(39);}
   ;
   
-boucle  : 'ttq' {PtGen.pt(34);} expression {PtGen.pt(31);}'faire' instructions {PtGen.pt(36);} 'fait' 
+boucle  : 'ttq' {PtGen.pt(34);} expression {PtGen.pt(31);}'faire' instructions {PtGen.pt(35);} 'fait' 
   ;
   
 lecture: 'lire' '(' ident {PtGen.pt(30);} ( ',' ident  )* ')' 

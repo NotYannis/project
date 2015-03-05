@@ -219,7 +219,7 @@ public class PtGen {
 	private static int tCour; // type de l'expression compilée
 	private static int vCour; // valeur de l'expression compilée le cas echeant
 	private static int bp;
-	private static int y;
+	private static int nbvar;
 	private static int x;
 	private static int aAffecter; // Variable a affecter
 
@@ -255,8 +255,7 @@ public class PtGen {
 		bc = 1;
 		ipo = 0;
 		tCour = NEUTRE;
-		bp = 0;
-		y = 0; // indice de placement des varglobales
+		nbvar = 0; // indice de placement des varglobales
 		x = 0;
 	} // initialisations
 
@@ -306,23 +305,20 @@ public class PtGen {
 		// code Mapile reserver
 		case 8:
 			produire(RESERVER);
-			produire(bp); // Nb de variables à sauvegarder
+			produire(nbvar); // Nb de variables à sauvegarder
 			break;
 		// declaration consts
 		case 9:
-			// y = UtilLex.numId;
 			if (presentIdent(1) == 0) {
 				placeIdent(UtilLex.numId, CONSTANTE, tCour, vCour);
 			}
-			afftabSymb();
 			break;
 		// Declaration de varglibale
 		case 10:
 			if (presentIdent(1) == 0) {
-				placeIdent(UtilLex.numId, VARGLOBALE, tCour, bp);
-				bp++;
+				placeIdent(UtilLex.numId, VARGLOBALE, tCour, nbvar);
+				nbvar++;
 			}
-			afftabSymb();
 			break;
 		// type bool
 		case 11:
@@ -410,7 +406,6 @@ public class PtGen {
 				UtilLex.messErr("Maj tabSymb : cas non pris en compte");
 				break;
 			}
-			afftabSymb();
 			break;
 		// Affectation de variable globale
 		case 28:
@@ -457,7 +452,7 @@ public class PtGen {
 		case 31:
 			verifBool();
 			produire(BSIFAUX);
-			produire(po[ipo]);
+			produire(0);
 			pileRep.empiler(ipo);
 			break;
 		// Alors
@@ -474,35 +469,46 @@ public class PtGen {
 		// ttq
 		case 34:
 			pileRep.empiler(ipo + 1);
-			System.out.println("apres ttq ipo " + ipo);
 			break;
 		// sortie de boucle
-		case 36:
+		case 35:
 			produire(BINCOND);
 			po[pileRep.depiler()] = ipo + 2;
 			produire(pileRep.depiler());
 			break;
 		// Debut cond : chaine de reprise vide
-		case 37:
+		case 36:
 			pileRep.empiler(0);
 			break;
-		// après 1er bincond
-		case 39:
+		//autre
+		case 37 :
 			produire(BINCOND);
 			produire(0);
 			po[pileRep.depiler()] = ipo + 1;
 			pileRep.empiler(ipo);
 			break;
+		// après 1er bincond
+		case 38:
+			produire(BINCOND);
+			po[pileRep.depiler()] = ipo + 2;
+			produire(pileRep.depiler());
+			pileRep.empiler(ipo);
+			break;
 		//Fin du cond, remonte la chaîne de reprise
-		case 40:
-			int x = pileRep.depiler(); //Besoin d'une variable pour ne pas dépiler deux fois en faisant po[pileRep.depiler()]
-			while(x != 0){
-				po[x] = ipo + 1;
-				x = pileRep.depiler();
+		case 39:
+			po[pileRep.depiler()] = ipo + 1;
+			int valdep = pileRep.depiler();//Besoin d'une variable pour ne pas dépiler deux fois en faisant po[pileRep.depiler()]
+			while(valdep != 0){
+				pileRep.empiler(po[valdep]);//Empile la valeur du bincond chaîné
+				po[valdep] = ipo + 1;
+				valdep = pileRep.depiler();
 			}
 			break;
+			
+		case 43 :
 		case 255:
 			produire(ARRET);
+			afftabSymb();
 			constGen();
 			constObj();
 			break;
