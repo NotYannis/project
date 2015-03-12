@@ -211,17 +211,13 @@ public class PtGen {
 
 	// autres variables et procédures fournies
 	// ---------------------------------------
-	public static String trinome = "ATTARD DOUX RADENAC"; // RENSEIGNER ICI LES
-															// NOMS DU
-	// TRINOME, constitués
-	// exclusivement de lettres
+	public static String trinome = "ATTARD DOUX RADENAC"; // RENSEIGNER ICI LES NOMS DU
+													// TRINOME, constitués
+													// exclusivement de lettres
 
 	private static int tCour; // type de l'expression compilée
 	private static int vCour; // valeur de l'expression compilée le cas echeant
-	private static int bp;
-	private static int nbvar;
-	private static int x;
-	private static int aAffecter; // Variable a affecter
+	
 
 	// compilation séparée : vecteur de translation et descripteur
 	// -----------------------------------------------------------
@@ -255,12 +251,28 @@ public class PtGen {
 		bc = 1;
 		ipo = 0;
 		tCour = NEUTRE;
+		tCour = NEUTRE;
 		nbvar = 0; // indice de placement des varglobales
 		x = 0;
+		aAffecter=0;
+		aAffecter=0;
+		nbvarproc=0; //param fixe et mod
+		nbvarident=0; //variable locale
+		pourAppelEFixe=0; // permet de voir cb il y a de effixes
+		pourAppelEMod=0; // permet de voir cb il y a de efmods
+		
+		
 	} // initialisations
-
+	
 	// autres variables et procédures introduites par le trinome
-
+	private static int nbvar =0;
+	private static int x=0;
+	private static int nbvarproc=0;
+	private static int nbvarident=0;
+	private static int aAffecter=0;
+	private static int aAffecter2=0;
+	private static int pourAppelEMod=0;
+	private static int pourAppelEFixe=0;
 	// code des points de génération à compléter
 	// -----------------------------------------
 	public static void pt(int numGen) {
@@ -304,8 +316,16 @@ public class PtGen {
 			break;
 		// code Mapile reserver
 		case 8:
+			if(bc==1){
 			produire(RESERVER);
 			produire(nbvar); // Nb de variables à sauvegarder
+			}
+			else{
+				if(nbvarident!=0){
+				produire(RESERVER);
+				produire(nbvarident);
+				}
+			}
 			break;
 		// declaration consts
 		case 9:
@@ -313,11 +333,17 @@ public class PtGen {
 				placeIdent(UtilLex.numId, CONSTANTE, tCour, vCour);
 			}
 			break;
-		// Declaration de varglibale
+		// Declaration de varglobale ou locale
 		case 10:
 			if (presentIdent(1) == 0) {
-				placeIdent(UtilLex.numId, VARGLOBALE, tCour, nbvar);
-				nbvar++;
+				if (bc ==1){
+					placeIdent(UtilLex.numId, VARGLOBALE, tCour, nbvar);
+					nbvar++;
+				}
+				else{
+					placeIdent(UtilLex.numId, VARLOCALE, tCour,nbvarproc+nbvarident+2);
+					nbvarident++;
+				}
 			}
 			break;
 		// type bool
@@ -345,10 +371,12 @@ public class PtGen {
 			break;
 		case 16:
 			produire(MUL);
+			tCour = ENT;
 			break;
 		// /
 		case 17:
 			produire(DIV);
+			tCour = ENT;
 			break;
 		// traitement des expressions 3
 		case 18:
@@ -378,14 +406,17 @@ public class PtGen {
 		// NON
 		case 24:
 			produire(NON);
+			tCour = BOOL;
 			break;
 		// ET
 		case 25:
 			produire(ET);
+			tCour = BOOL;
 			break;
 		// OU
 		case 26:
 			produire(OU);
+			tCour = BOOL;
 			break;
 		// Maj table des symboles
 		case 27:
@@ -402,15 +433,47 @@ public class PtGen {
 				produire(CONTENUG);
 				produire(tabSymb[x].info);
 				break;
+			case PARAMFIXE:
+				produire(CONTENUL);
+				produire(tabSymb[x].info);
+				produire(0);
+				break;
+			case VARLOCALE:
+				produire(CONTENUL);
+				produire(tabSymb[x].info);
+				produire(0);
+				break;
+			case PARAMMOD:
+				produire(CONTENUL);
+				produire(tabSymb[x].info);
+				produire(1);
+				break;
 			default:
 				UtilLex.messErr("Maj tabSymb : cas non pris en compte");
 				break;
 			}
 			break;
-		// Affectation de variable globale
+		// Affectation de variable globale ou locale
 		case 28:
+			if(bc==1){
 			produire(AFFECTERG);
 			produire(aAffecter);
+			}
+			else{
+				produire(AFFECTERL);
+				produire(aAffecter);
+				switch (tabSymb[x].categorie) {
+				case VARLOCALE:
+					produire(0);
+					break;
+				case PARAMMOD:
+					produire(1);
+					break;
+				default:
+					UtilLex.messErr("Maj tabSymb : cas non pris en compte");
+					break;
+				}
+			}
 			break;
 		// Teste si c'est une variable à affecter et l'enregistre
 		case 29:
@@ -418,10 +481,23 @@ public class PtGen {
 			if (x == 0)
 				UtilLex.messErr("Enregistrement variable : identificateur non déclaré");
 			switch (tabSymb[x].categorie) {
+			case PROC:
+				aAffecter=tabSymb[x].info;
+				aAffecter2=tabSymb[x+1].info;
+				break;
 			case CONSTANTE:
-				UtilLex.messErr("Variable globale attendue");
+				UtilLex.messErr("Variable globale/locale/parammod attendue");
 				break;
 			case VARGLOBALE:
+				aAffecter = tabSymb[x].info;
+				break;
+			case VARLOCALE:
+				aAffecter = tabSymb[x].info;
+				break;
+			case PARAMFIXE:
+				UtilLex.messErr("Variable globale/locale/parammod attendue");
+				break;
+			case PARAMMOD:
 				aAffecter = tabSymb[x].info;
 				break;
 			default:
@@ -445,8 +521,22 @@ public class PtGen {
 				UtilLex.messErr("Lecture : cas non pris en compte");
 				break;
 			}
+			if(bc==1){
 			produire(AFFECTERG);
 			produire(tabSymb[x].info);
+			}
+			else{
+				produire(AFFECTERL);
+				produire(tabSymb[x].info);
+				switch (tabSymb[x].categorie) {
+				case VARLOCALE:
+					produire(0);
+					break;
+				case PARAMMOD:
+					produire(1);
+					break;
+				}
+			}
 			break;
 		// Si OU condition d'arrêt de ttq OU cond
 		case 31:
@@ -505,21 +595,112 @@ public class PtGen {
 			}
 			break;
 			
-		case 43 :
+		//maj tabsymb pour procédure
+		case 41:
+			if (presentIdent(1) == 0) {
+				placeIdent(UtilLex.numId, PROC, NEUTRE, ipo+1);
+				placeIdent(-1,PRIVEE,NEUTRE, 0);
+				bc=it+1;
+				nbvarproc=0;
+			}
+			break;
+		//paramfixe	
+		case 42:
+			if (presentIdent(1) == 0) {
+				placeIdent(UtilLex.numId, PARAMFIXE, tCour, nbvarproc);
+				nbvarproc++;
+			}
+			
+			break;
+		//Parammod
+		case 43:
+			if (presentIdent(1) == 0) {
+				placeIdent(UtilLex.numId, PARAMMOD, tCour, nbvarproc);
+				nbvarproc++;
+			}
+			
+			break;
+		//Nb de param pour la procédure courante
+		case 44:
+			tabSymb[bc-1].info=it-bc+1;
+			break;
+		//bincond de procédure
+		case 45:
+			produire(BINCOND);
+			produire(po[ipo]);
+			pileRep.empiler(ipo);
+			break;
+		//Appel de procédure
+		case 46:
+			if((pourAppelEFixe + pourAppelEMod)==aAffecter2){
+				produire(APPEL);
+				produire(aAffecter);
+				produire(aAffecter2);
+			}
+			else {
+				UtilLex.messErr("Il n'y a pas assez de paramètre dans l'appel");
+			}
+			break;
+		//param mod à l'appel	
+		case 47:
+			x=presentIdent(1);
+			if(x==0)
+				UtilLex.messErr("Lecture : identificateur non déclaré");
+			switch (tabSymb[x].categorie) {
+			case CONSTANTE:
+				UtilLex.messErr("Variable globale/locale/parammod attendue");
+				break;
+			case VARGLOBALE:
+				produire(EMPILERADG);
+				produire(tabSymb[x].info);
+				break;
+		case VARLOCALE:
+				produire(EMPILERADL);
+				produire(tabSymb[x].info);
+				produire(0);
+				break;
+			case PARAMFIXE:
+				UtilLex.messErr("Variable globale/locale/parammod attendue");
+				break;
+			case PARAMMOD:
+				produire(EMPILERADL);
+				produire(tabSymb[x].info);
+				produire(1);
+				break;
+			}
+			break;
+		//Compte le nb de param fixes à l'appel
+		case 48:
+			pourAppelEFixe++;
+			break;
+		//Compte le nb de param mod à l'appel	
+		case 49:
+			pourAppelEMod++;
+			break;
+		
 		case 255:
+			if(bc==1){
 			produire(ARRET);
-			afftabSymb();
 			constGen();
 			constObj();
+			afftabSymb();
+			}
+			else{
+				it=it-nbvarident;
+				for(int i= bc; i<=it;++i){
+					tabSymb[i].code=-1;
+				}
+				produire(RETOUR);
+				produire(tabSymb[bc-1].info);
+				po[pileRep.depiler()] = ipo + 1;
+				bc=1;
+				nbvarident=0;
+				nbvarproc=0;
+			}
 			break;
 
-		// traitement du cond
-
-		// etc
-
 		default:
-			System.out
-					.println("Point de génération non prévu dans votre liste");
+			System.out.println("Point de génération non prévu dans votre liste");
 			break;
 
 		}
