@@ -255,24 +255,24 @@ public class PtGen {
 		nbvar = 0; // indice de placement des varglobales
 		x = 0;
 		aAffecter=0;
-		aAffecter=0;
 		nbvarproc=0; //param fixe et mod
 		nbvarident=0; //variable locale
 		pourAppelEFixe=0; // permet de voir cb il y a de effixes
 		pourAppelEMod=0; // permet de voir cb il y a de efmods
+		aProc=0;
 		
 		
 	} // initialisations
 	
 	// autres variables et procédures introduites par le trinome
-	private static int nbvar =0;
-	private static int x=0;
-	private static int nbvarproc=0;
-	private static int nbvarident=0;
-	private static int aAffecter=0;
-	private static int aAffecter2=0;
-	private static int pourAppelEMod=0;
-	private static int pourAppelEFixe=0;
+	private static int nbvar;
+	private static int x;
+	private static int nbvarproc;
+	private static int nbvarident;
+	private static int aAffecter;
+	private static int pourAppelEMod;
+	private static int pourAppelEFixe;
+	private static int aProc;
 	// code des points de génération à compléter
 	// -----------------------------------------
 	public static void pt(int numGen) {
@@ -335,7 +335,7 @@ public class PtGen {
 			break;
 		// Declaration de varglobale ou locale
 		case 10:
-			if (presentIdent(1) == 0) {
+			if (presentIdent(bc) == 0) {
 				if (bc ==1){
 					placeIdent(UtilLex.numId, VARGLOBALE, tCour, nbvar);
 					nbvar++;
@@ -457,18 +457,27 @@ public class PtGen {
 		case 28:
 			if(bc==1){
 			produire(AFFECTERG);
-			produire(aAffecter);
+			produire(tabSymb[aAffecter].info);
 			}
 			else{
-				produire(AFFECTERL);
-				produire(aAffecter);
-				switch (tabSymb[x].categorie) {
+				System.out.println("case228");
+				switch (tabSymb[aAffecter].categorie) {
+				
+				case VARGLOBALE:
+					produire(AFFECTERG);
+					produire(tabSymb[aAffecter].info);
+				break;
 				case VARLOCALE:
+					produire(AFFECTERL);
+					produire(tabSymb[aAffecter].info);
 					produire(0);
 					break;
 				case PARAMMOD:
+					produire(AFFECTERL);
+					produire(tabSymb[aAffecter].info);
 					produire(1);
 					break;
+					
 				default:
 					UtilLex.messErr("Maj tabSymb : cas non pris en compte");
 					break;
@@ -477,28 +486,21 @@ public class PtGen {
 			break;
 		// Teste si c'est une variable à affecter et l'enregistre
 		case 29:
-			x = presentIdent(1);
-			if (x == 0)
+			aAffecter = presentIdent(1);
+			if (aAffecter == 0)
 				UtilLex.messErr("Enregistrement variable : identificateur non déclaré");
-			switch (tabSymb[x].categorie) {
-			case PROC:
-				aAffecter=tabSymb[x].info;
-				aAffecter2=tabSymb[x+1].info;
-				break;
+			switch (tabSymb[aAffecter].categorie) {
 			case CONSTANTE:
-				UtilLex.messErr("Variable globale/locale/parammod attendue");
+				UtilLex.messErr("Case 29 constante : Variable globale/locale/parammod attendue");
 				break;
 			case VARGLOBALE:
-				aAffecter = tabSymb[x].info;
 				break;
 			case VARLOCALE:
-				aAffecter = tabSymb[x].info;
 				break;
 			case PARAMFIXE:
-				UtilLex.messErr("Variable globale/locale/parammod attendue");
+				UtilLex.messErr("Case 29 paramfixe : Variable globale/locale/parammod attendue");
 				break;
 			case PARAMMOD:
-				aAffecter = tabSymb[x].info;
 				break;
 			default:
 				UtilLex.messErr("Enregistrement variable : cas non pris en compte");
@@ -507,7 +509,8 @@ public class PtGen {
 			break;
 		// Lecture
 		case 30:
-			x = presentIdent(1);
+			afftabSymb();
+			x = presentIdent(bc);
 			if (x == 0)
 				UtilLex.messErr("Lecture : identificateur non déclaré");
 			switch (tabSymb[x].type) {
@@ -527,6 +530,7 @@ public class PtGen {
 			}
 			else{
 				produire(AFFECTERL);
+				System.out.println("case30");
 				produire(tabSymb[x].info);
 				switch (tabSymb[x].categorie) {
 				case VARLOCALE:
@@ -594,7 +598,6 @@ public class PtGen {
 				valdep = pileRep.depiler();
 			}
 			break;
-			
 		//maj tabsymb pour procédure
 		case 41:
 			if (presentIdent(1) == 0) {
@@ -606,7 +609,7 @@ public class PtGen {
 			break;
 		//paramfixe	
 		case 42:
-			if (presentIdent(1) == 0) {
+			if (presentIdent(bc) == 0) {
 				placeIdent(UtilLex.numId, PARAMFIXE, tCour, nbvarproc);
 				nbvarproc++;
 			}
@@ -614,7 +617,7 @@ public class PtGen {
 			break;
 		//Parammod
 		case 43:
-			if (presentIdent(1) == 0) {
+			if (presentIdent(bc) == 0) {
 				placeIdent(UtilLex.numId, PARAMMOD, tCour, nbvarproc);
 				nbvarproc++;
 			}
@@ -632,10 +635,12 @@ public class PtGen {
 			break;
 		//Appel de procédure
 		case 46:
-			if((pourAppelEFixe + pourAppelEMod)==aAffecter2){
+			if((pourAppelEFixe + pourAppelEMod)==tabSymb[aProc+1].info){
 				produire(APPEL);
-				produire(aAffecter);
-				produire(aAffecter2);
+				produire(tabSymb[aProc].info);
+				produire(tabSymb[aProc+1].info);
+				pourAppelEFixe=0;
+				pourAppelEMod=0;
 			}
 			else {
 				UtilLex.messErr("Il n'y a pas assez de paramètre dans l'appel");
@@ -677,6 +682,23 @@ public class PtGen {
 		case 49:
 			pourAppelEMod++;
 			break;
+			//Résolution du bincond des procs
+		case 50:
+			po[pileRep.depiler()] = ipo + 1;
+			break;
+			
+		case 51:
+			aProc = presentIdent(1);
+			if (aProc == 0)
+				UtilLex.messErr("Enregistrement variable : identificateur non déclaré");
+			switch(tabSymb[aProc].categorie){
+			case PROC:
+			break;
+			default :
+				UtilLex.messErr("case 51 : Ident procédure attendue");
+				break;
+			}
+			break;
 		
 		case 255:
 			if(bc==1){
@@ -692,7 +714,6 @@ public class PtGen {
 				}
 				produire(RETOUR);
 				produire(tabSymb[bc-1].info);
-				po[pileRep.depiler()] = ipo + 1;
 				bc=1;
 				nbvarident=0;
 				nbvarproc=0;
